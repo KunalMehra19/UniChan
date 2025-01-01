@@ -1,209 +1,3 @@
-// import { useState } from 'react';
-// import { Settings, LogOut, Home, Building2, GraduationCap, ThumbsUp, Search, ArrowUpDown } from 'lucide-react';
-
-// const App = () => {
-//   // Simulate current user - in a real app, this would come from authentication
-//   const currentUser = "user123";
-
-//   const [blogs, setBlogs] = useState([
-//     {
-//       id: 1,
-//       thread:'home',
-//       timestamp: "19-11-2005 11:11",
-//       content: "Just moved into the new CS building. The facilities are amazing!",
-//       tripcode: "cb,asfefwf",
-//       upvotes: 0
-//     },
-//     {
-//       id: 2,
-//       thread:'home',
-//       timestamp: "19-11-2005 11:11",
-//       content: "Looking for roommates in Block C hostel. PM if interested.",
-//       tripcode: "fdafsd",
-//       upvotes: 0
-//     },
-//     {
-//       id: 3,
-//       thread:'home',
-//       timestamp: "19-11-2005 11:11",
-//       content: "Department fest coming up next week. Don't miss it!",
-//       tripcode: "revfds",
-//       upvotes: 0
-//     },
-//     {
-//       id: 4,
-//       thread:'home',
-//       timestamp: "19-11-2005 11:11",
-//       content: "today is my birthday",
-//       tripcode: "dsvsdvs",
-//       upvotes: 0
-//     }
-//   ]);
-
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [sortBy, setSortBy] = useState('newest');
-
-//   // const handleUpvote = (blogId) => {
-//   //   setBlogs(blogs.map(blog => {
-//   //     if (blog.id === blogId) {
-//   //       // Check if user has already upvoted
-//   //       if (blog.upvotedBy.includes(currentUser)) {
-//   //         // Remove upvote
-//   //         return {
-//   //           ...blog,
-//   //           upvotes: blog.upvotes - 1,
-//   //           upvotedBy: blog.upvotedBy.filter(user => user !== currentUser)
-//   //         };
-//   //       } else {
-//   //         // Add upvote
-//   //         return {
-//   //           ...blog,
-//   //           upvotes: blog.upvotes + 1,
-//   //           upvotedBy: [...blog.upvotedBy, currentUser]
-//   //         };
-//   //       }
-//   //     }
-//   //     return blog;
-//   //   }));
-//   // };
-
-//   const filteredAndSortedBlogs = blogs
-//     .filter(blog => {
-//       return blog.content.toLowerCase().includes(searchTerm.toLowerCase())
-//             //  blog.author.toLowerCase().includes(searchTerm.toLowerCase());
-//     })
-//     .sort((a, b) => {
-//       if (sortBy === 'newest') {
-//         return new Date(b.date) - new Date(a.date);
-//       // } else if (sortBy === 'mostUpvotes') {
-//       //   return b.upvotes - a.upvotes;
-//       }
-//       return 0;
-//     });
-
-//   return (
-//     <div className="min-h-screen bg-gray-900 maindiv">
-//       <button className="plusbutton"><svg className='plus' fill="#22c55e" width="800px" height="800px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M18 10h-4v-4c0-1.104-.896-2-2-2s-2 .896-2 2l.071 4h-4.071c-1.104 0-2 .896-2 2s.896 2 2 2l4.071-.071-.071 4.071c0 1.104.896 2 2 2s2-.896 2-2v-4.071l4 .071c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg></button>
-//       <nav className="bg-black text-gray-100 p-4 sticky top-0 z-50 border-b border-gray-800">
-//         <div className="container mx-auto flex justify-between items-center">
-//           <div className="flex items-center space-x-6">
-//             <span className="text-xl font-bold text-green-500">UniChan</span>
-
-//             <div className="flex space-x-4">
-//               <button className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
-//                 <Home size={18} />
-//                 <span>Home</span>
-//               </button>
-
-//               <button className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
-//                 <Building2 size={18} />
-//                 <span>Hostels</span>
-//               </button>
-
-//               <button className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
-//                 <GraduationCap size={18} />
-//                 <span>Departments</span>
-//               </button>
-//             </div>
-//           </div>
-
-//           <div className="flex items-center space-x-4">
-//             <button className="hover:bg-gray-800 p-2 rounded transition-colors duration-200">
-//               <Settings size={20} className="text-gray-300 hover:text-green-500" />
-//             </button>
-//             <button className="hover:bg-gray-800 p-2 rounded transition-colors duration-200">
-//               <LogOut size={20} className="text-gray-300 hover:text-green-500" />
-//             </button>
-//           </div>
-//         </div>
-//       </nav>
-
-//       <main className="container mx-auto py-6 px-4">
-//         {/* Search and Sort Section */}
-//         <div className="mb-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-//           <div className="relative flex-1">
-//             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-//               <Search size={18} className="text-gray-400" />
-//             </div>
-//             <input
-//               type="text"
-//               placeholder="Search posts..."
-//               className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-green-500 transition-colors duration-200"
-//               value={searchTerm}
-//               onChange={(e) => setSearchTerm(e.target.value)}
-//             />
-//           </div>
-
-//           <div className="relative">
-//             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-//               <ArrowUpDown size={18} className="text-gray-400" />
-//             </div>
-//             <select
-//               className="pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-100 focus:outline-none focus:border-green-500 transition-colors duration-200"
-//               value={sortBy}
-//               onChange={(e) => setSortBy(e.target.value)}
-//             >
-//               <option value="newest">Newest</option>
-//               {/* <option value="mostUpvotes">Most Upvotes</option> */}
-//             </select>
-//           </div>
-//         </div>
-
-//         {/* Posts Section */}
-//         <div className="space-y-4">
-//           {filteredAndSortedBlogs.map(blog => (
-//             <div key={blog.id} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors duration-200 border border-gray-700">
-//               <div className="flex items-start space-x-4">
-//                 <div className="flex-shrink-0">
-//                   <div className="w-5 h-5 bg-gray-700 overflow-hidden">
-
-//                   </div>
-//                 </div>
-
-//                 <div className="flex-1">
-//                   <div className="flex items-center justify-between mb-2">
-//                     <div>
-//                       <h3 className="text-lg font-semibold text-green-500">Anonymous</h3>
-//                       <p className="text-sm text-gray-400">
-//                         {blog.tripcode} • {blog.timestamp}
-//                       </p>
-//                     </div>
-//                   </div>
-
-//                   <p className="text-gray-300">{blog.content}</p>
-
-//                   <div className="mt-4 flex items-center space-x-4">
-//                     {/* <button
-//                       onClick={() => handleUpvote(blog.id)}
-//                       className={`flex items-center space-x-1 text-sm transition-colors duration-200 ${
-//                         blog.upvotedBy.includes(currentUser) 
-//                           ? 'text-green-500' 
-//                           : 'text-gray-400 hover:text-green-500'
-//                       }`}
-//                     >
-//                       <ThumbsUp size={16} />
-//                       <span>{blog.upvotes}</span>
-//                     </button> */}
-//                     <button className="text-gray-400 hover:text-green-500 text-sm transition-colors duration-200">
-//                       Reply
-//                     </button>
-//                     <button className="text-gray-400 hover:text-green-500 text-sm transition-colors duration-200">
-//                       Replies
-//                     </button>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </main>
-//     </div>
-//   );
-// };
-
-// export default App;
-
-
 import ReactDOM from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
 import { Settings, LogOut, Home, Building2, GraduationCap, ThumbsUp, Search, ArrowUpDown, X, Italic } from 'lucide-react';
@@ -363,7 +157,6 @@ const App = () => {
                           .filter(reply => reply.thread === blog.tripcode) // Filter replies by thread
                           .map(reply => (
                             <div key={reply.id}>
-                              {/* Replace this with your ReplyComp or HTML */}
                               <ReplyComp blog={reply} />
                             </div>
                           ))
@@ -502,12 +295,18 @@ const App = () => {
       <nav className="bg-black text-gray-100 p-4 sticky top-0 z-50 border-b border-gray-800">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-6">
+            <div onClick={()=>{document.getElementsByClassName('options')[0].style.left=-24+'px'}} className="ham">
+            <svg fill="#48bb78" width="24px" height="24px" viewBox="0 0 0.32 0.32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>icn/menu</title><path d="M0.04 0.06h0.24a0.02 0.02 0 0 1 0 0.04H0.04a0.02 0.02 0 1 1 0 -0.04m0 0.08h0.24a0.02 0.02 0 0 1 0 0.04H0.04a0.02 0.02 0 1 1 0 -0.04m0 0.08h0.24a0.02 0.02 0 0 1 0 0.04H0.04a0.02 0.02 0 0 1 0 -0.04" id="a"/></svg>
+            </div>
             <span className="text-xl font-bold text-green-500">UniChan</span>
-
-            <div className="flex space-x-4">
+            
+            <div className="options flex ">
+              <div onClick={()=>{document.getElementsByClassName('options')[0].style.left=-240+'px'}} className="close right-0 mx-2">
+              <svg fill="#48bb78" width="24px" height="24px" viewBox="-6 -6 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-close"><path d='M7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485 2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535 3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z' /></svg>
+              </div>
               <button
                 onClick={() => { setCurrentThread('main'); settoreply('main')}}
-                className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
+                className="flex mx-2 items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
                 <Home size={18} />
                 <span>Home</span>
 
@@ -515,26 +314,21 @@ const App = () => {
 
               <button
                 onClick={() => { setCurrentThread('hostels'); settoreply('hostels') }}
-                className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
+                className="flex mx-2 items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
                 <Building2 size={18} />
                 <span>Hostels</span>
               </button>
 
               <button
                 onClick={() => { setCurrentThread('department'); settoreply("department") }}
-                className="flex items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
+                className="flex mx-2 items-center space-x-1 hover:bg-gray-800 px-3 py-2 rounded transition-colors duration-200">
                 <GraduationCap size={18} />
                 <span>Departments</span>
               </button>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <button className="hover:bg-gray-800 p-2 rounded transition-colors duration-200">
-              <Settings size={20} className="text-gray-300 hover:text-green-500" />
-            </button>
-
-          </div>
+          
         </div>
       </nav>
 
